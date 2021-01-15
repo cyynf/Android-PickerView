@@ -265,6 +265,16 @@ public class OptionsPickerBuilder {
     }
 
     /**
+     * 是否启用倾斜
+     *
+     * @param isEnableSkew true of false
+     */
+    public OptionsPickerBuilder isEnableSkew(boolean isEnableSkew) {
+        mPickerOptions.isEnableSkew = isEnableSkew;
+        return this;
+    }
+
+    /**
      * 切换选项时，是否还原第一项
      *
      * @param isRestoreItem true：还原； false: 保持上一个选项

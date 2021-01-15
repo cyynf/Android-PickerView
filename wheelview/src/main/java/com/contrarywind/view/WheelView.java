@@ -39,7 +39,7 @@ public class WheelView extends View {
     }
 
     public enum DividerType { // 分隔线类型
-        FILL, WRAP, CIRCLE
+        FILL, WRAP, Line
     }
 
     private static final String[] TIME_NUM = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09"};
@@ -123,6 +123,7 @@ public class WheelView extends View {
     private float CENTER_CONTENT_OFFSET;//偏移量
 
     private boolean isAlphaGradient = false; //透明度渐变
+    private boolean isEnableSkew = true; //是否启用倾斜
 
     public WheelView(Context context) {
         this(context, null);
@@ -334,6 +335,10 @@ public class WheelView extends View {
         isAlphaGradient = alphaGradient;
     }
 
+    public void setEnableSkew(boolean enableSkew) {
+        isEnableSkew = enableSkew;
+    }
+
     public final WheelAdapter getAdapter() {
         return adapter;
     }
@@ -414,29 +419,13 @@ public class WheelView extends View {
                 startX = 10;
             }
             endX = measuredWidth - startX;
-            canvas.drawLine(startX, firstLineY, endX, firstLineY, paintIndicator);
-            canvas.drawLine(startX, secondLineY, endX, secondLineY, paintIndicator);
-        } else if (dividerType == DividerType.CIRCLE) {
-            //分割线为圆圈形状
-            paintIndicator.setStyle(Paint.Style.STROKE);
-            paintIndicator.setStrokeWidth(dividerWidth);
-            float startX;
-            float endX;
-            if (TextUtils.isEmpty(label)) {//隐藏Label的情况
-                startX = (measuredWidth - maxTextWidth) / 2f - 12;
-            } else {
-                startX = (measuredWidth - maxTextWidth) / 4f - 12;
-            }
-            if (startX <= 0) {//如果超过了WheelView的边缘
-                startX = 10;
-            }
-            endX = measuredWidth - startX;
-            //半径始终以宽高中最大的来算
-            float radius = Math.max((endX - startX), itemHeight) / 1.8f;
-            canvas.drawCircle(measuredWidth / 2f, measuredHeight / 2f, radius, paintIndicator);
-        } else {
+
+            canvas.drawRect(startX, firstLineY, endX, secondLineY, paintIndicator);
+        } else if (dividerType == DividerType.Line) {
             canvas.drawLine(0.0F, firstLineY, measuredWidth, firstLineY, paintIndicator);
             canvas.drawLine(0.0F, secondLineY, measuredWidth, secondLineY, paintIndicator);
+        } else {
+            canvas.drawRect(0, firstLineY, measuredWidth, secondLineY, paintIndicator);
         }
 
         //只显示选中项Label文字的模式，并且Label文字不为空，则进行绘制
