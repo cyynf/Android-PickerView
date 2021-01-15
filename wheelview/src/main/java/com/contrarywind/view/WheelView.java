@@ -545,8 +545,9 @@ public class WheelView extends View {
         } else if (textXOffset < 0) {
             multiplier = -1;
         }
-        paintOuterText.setTextSkewX(multiplier * (angle > 0 ? -1 : 1) * DEFAULT_TEXT_TARGET_SKEW_X * offsetCoefficient);
-
+        if (isEnableSkew) {
+            paintOuterText.setTextSkewX(multiplier * (angle > 0 ? -1 : 1) * DEFAULT_TEXT_TARGET_SKEW_X * offsetCoefficient);
+        }
         // 控制透明度
         int alpha = isAlphaGradient ? (int) ((90F - Math.abs(angle)) / 90f * 255) : 255;
         // Log.d("WheelView", "alpha:" + alpha);
