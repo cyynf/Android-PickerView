@@ -119,7 +119,7 @@ public class WheelView extends View {
     private int mGravity = Gravity.CENTER;
     private int drawCenterContentStart = 0;//中间选中文字开始绘制位置
     private int drawOutContentStart = 0;//非中间文字开始绘制位置
-    private static final float SCALE_CONTENT = 0.8F;//非中间文字则用此控制高度，压扁形成3d错觉
+    private float SCALE_CONTENT = 0.8F;//非中间文字则用此控制高度，压扁形成3d错觉
     private float CENTER_CONTENT_OFFSET;//偏移量
 
     private boolean isAlphaGradient = false; //透明度渐变
@@ -337,6 +337,11 @@ public class WheelView extends View {
 
     public void setEnableSkew(boolean enableSkew) {
         isEnableSkew = enableSkew;
+        if (isEnableSkew) {
+            SCALE_CONTENT = 0.8f;
+        } else {
+            SCALE_CONTENT = 1;
+        }
     }
 
     public final WheelAdapter getAdapter() {
@@ -456,7 +461,12 @@ public class WheelView extends View {
             canvas.save();
             // 弧长 L = itemHeight * counter - itemHeightOffset
             // 求弧度 α = L / r  (弧长/半径) [0,π]
-            double radian = ((itemHeight * counter - itemHeightOffset)) / radius;
+            double radian;
+            if (isEnableSkew) {
+                radian = ((itemHeight * counter - itemHeightOffset)) / radius;
+            } else {
+                radian = 90;
+            }
             // 弧度转换成角度(把半圆以Y轴为轴心向右转90度，使其处于第一象限及第四象限
             // angle [-90°,90°]
             float angle = (float) (90D - (radian / Math.PI) * 180D);//item第一项,从90度开始，逐渐递减到 -90度
@@ -547,6 +557,8 @@ public class WheelView extends View {
         }
         if (isEnableSkew) {
             paintOuterText.setTextSkewX(multiplier * (angle > 0 ? -1 : 1) * DEFAULT_TEXT_TARGET_SKEW_X * offsetCoefficient);
+        }else {
+            paintOuterText.setTextSkewX(0);
         }
         // 控制透明度
         int alpha = isAlphaGradient ? (int) ((90F - Math.abs(angle)) / 90f * 255) : 255;
