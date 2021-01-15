@@ -897,4 +897,13 @@ public class WheelTime {
         wv_minutes.setAlphaGradient(isAlphaGradient);
         wv_seconds.setAlphaGradient(isAlphaGradient);
     }
+
+    public void setSkew(boolean isEnableSkew) {
+        wv_day.setEnableSkew(isEnableSkew);
+        wv_month.setEnableSkew(isEnableSkew);
+        wv_year.setEnableSkew(isEnableSkew);
+        wv_hours.setEnableSkew(isEnableSkew);
+        wv_minutes.setEnableSkew(isEnableSkew);
+        wv_seconds.setEnableSkew(isEnableSkew);
+    }
 }

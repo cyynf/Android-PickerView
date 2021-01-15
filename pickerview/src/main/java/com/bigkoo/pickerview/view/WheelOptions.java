@@ -426,4 +426,10 @@ public class WheelOptions<T> {
         wv_option2.setAlphaGradient(isAlphaGradient);
         wv_option3.setAlphaGradient(isAlphaGradient);
     }
+
+    public void setSkew(boolean isEnableSkew) {
+        wv_option1.setEnableSkew(isEnableSkew);
+        wv_option2.setEnableSkew(isEnableSkew);
+        wv_option3.setEnableSkew(isEnableSkew);
+    }
 }
