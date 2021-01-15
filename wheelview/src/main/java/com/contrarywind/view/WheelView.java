@@ -39,7 +39,7 @@ public class WheelView extends View {
     }
 
     public enum DividerType { // 分隔线类型
-        FILL, WRAP, Line
+        FILL, WRAP, LINE
     }
 
     private static final String[] TIME_NUM = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09"};
@@ -421,7 +421,7 @@ public class WheelView extends View {
             endX = measuredWidth - startX;
 
             canvas.drawRect(startX, firstLineY, endX, secondLineY, paintIndicator);
-        } else if (dividerType == DividerType.Line) {
+        } else if (dividerType == DividerType.LINE) {
             canvas.drawLine(0.0F, firstLineY, measuredWidth, firstLineY, paintIndicator);
             canvas.drawLine(0.0F, secondLineY, measuredWidth, secondLineY, paintIndicator);
         } else {

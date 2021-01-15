@@ -145,6 +145,16 @@ public class TimePickerBuilder {
     }
 
     /**
+     * 是否启用倾斜
+     *
+     * @param isEnableSkew true of false
+     */
+    public TimePickerBuilder isEnableSkew(boolean isEnableSkew) {
+        mPickerOptions.isEnableSkew = isEnableSkew;
+        return this;
+    }
+
+    /**
      * 因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
      *
      * @param date
